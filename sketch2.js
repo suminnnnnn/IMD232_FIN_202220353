@@ -1,4 +1,5 @@
 let W2, H2;
+let maxCanvasHeight = 600; // 최대 세로 길이 설정
 let xspacing = 12;
 let w;
 let theta = 0;
@@ -14,7 +15,7 @@ let sensor2;
 function setup() {
   let container2 = document.querySelector('#canvas-container-2');
   W2 = windowWidth * 0.9;
-  H2 = W2 * 0.6;
+  H2 = min(W2 * 0.6, maxCanvasHeight); // 세로 길이는 최대 700으로 제한
   canvas2 = createCanvas(W2, H2);
   canvas2.parent(container2);
   w = width + 12;
@@ -67,9 +68,7 @@ function linearGradient(x, y, w, h, c1, c2) {
 
 function windowResized() {
   W2 = windowWidth * 0.9;
-  H2 = W2 * 0.6;
+  H2 = min(W2 * 0.6, maxCanvasHeight); // 세로 길이는 최대 700으로 제한
   resizeCanvas(W2, H2);
-
-  // 화면 크기가 조절될 때마다 그림 다시 그리기
-  draw();
+  redraw();
 }
