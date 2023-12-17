@@ -1,5 +1,5 @@
 let W2, H2;
-let maxCanvasHeight = 600; // 최대 세로 길이 설정
+let maxCanvasHeight = 600;
 let xspacing = 12;
 let w;
 let theta = 0;
@@ -15,7 +15,7 @@ let sensor2;
 function setup() {
   let container2 = document.querySelector('#canvas-container-2');
   W2 = windowWidth * 0.9;
-  H2 = min(W2 * 0.6, maxCanvasHeight); // 세로 길이는 최대 700으로 제한
+  H2 = min(W2 * 0.6, maxCanvasHeight);
   canvas2 = createCanvas(W2, H2);
   canvas2.parent(container2);
   w = width + 12;
