@@ -9,8 +9,8 @@ let dx;
 let yvalues;
 let canvas2;
 
-let sensor1;
-let sensor2;
+let mouse1;
+let mouse2;
 
 function setup() {
   let container2 = document.querySelector('#canvas-container-2');
@@ -25,32 +25,34 @@ function setup() {
 
 function draw() {
   linearGradient(0, 0, width, height, color(130, 230, 255), color(0, 0, 255));
-  calcWave();
-  renderWave();
-  sensor1 = map(mouseX, 0, width, 0, 5);
-  sensor2 = map(mouseY, 0, height, 1, 3);
+  Wave();
+  whiteWave();
+  mouse1 = map(mouseX, 0, width, 0, 2);
+  mouse2 = map(mouseY, 0, height, 1, 3);
 }
 
-function calcWave() {
+//파도를 표현하기 위해 for 루프를 기반으로 한 코드를 활용하였습니다. 고정된 파형의 기존 코드에 마우스를 활용해 진폭의 넓이, 높이가 바뀌도록 했습니다.
+//https://www.geeksforgeeks.org/how-to-create-animation-of-sine-wave-pattern-using-p5-js/
+function Wave() {
   theta += 0.09;
   var x = theta;
 
   for (var i = 0; i < yvalues.length; i++) {
-    yvalues[i] = sensor2 * sin(x * sensor1) * amplitude;
+    yvalues[i] = mouse2 * sin(x * mouse1) * amplitude;
     x += dx;
   }
 }
 
-function renderWave() {
+function whiteWave() {
   noStroke();
   fill(255);
 
   for (var x = 0; x < yvalues.length; x++) {
-    ellipse(
+    rect(
       map(x, 0, yvalues.length, 0, width),
-      map(height / 105 + yvalues[x], 0, height, 0, height),
-      10,
-      -390
+      map(height / 3 + yvalues[x], 0, height, 0, height),
+      20,
+      50
     );
   }
 }
@@ -68,7 +70,7 @@ function linearGradient(x, y, w, h, c1, c2) {
 
 function windowResized() {
   W2 = windowWidth * 0.9;
-  H2 = min(W2 * 0.6, maxCanvasHeight); // 세로 길이는 최대 700으로 제한
+  H2 = min(W2 * 0.6, maxCanvasHeight);
   resizeCanvas(W2, H2);
   redraw();
 }
